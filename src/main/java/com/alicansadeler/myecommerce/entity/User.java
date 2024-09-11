@@ -2,6 +2,7 @@ package com.alicansadeler.myecommerce.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -28,23 +29,29 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "first_name")
-    @NotNull
-    @Size(min = 3, max = 100)
+    @NotNull(message = "First name cannot be null")
+    @NotBlank(message = "First name cannot be blank")
+    @Size(max = 100, message = "First name cannot be more than 100 characters")
     private String firstName;
 
 
     @Column(name = "last_name")
-    @NotNull
-    @Size(min = 3, max = 100)
+    @NotNull(message = "Last name cannot be null")
+    @NotBlank(message = "Last name cannot be blank")
+    @Size(max = 100, message = "Last name cannot be more than 100 characters")
     private String lastName;
 
     @Column(name = "email")
-    @NotNull
-    @Email
+    @NotNull(message = "Email cannot be null")
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Email is not valid")
+    @Size(max = 255, message = "Email cannot be more than 255 characters")
     private String email;
 
     @Column(name = "password")
-    @NotNull
+    @NotNull(message = "Password cannot be null")
+    @NotBlank(message = "Password cannot be blank")
+    @Size(max = 255, message = "Password cannot be more than 255 characters")
     private String password;
 
     @Column(name = "birth_of_date")

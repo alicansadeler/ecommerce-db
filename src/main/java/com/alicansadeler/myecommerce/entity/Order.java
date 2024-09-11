@@ -33,5 +33,9 @@ public class Order {
     }
 
     @Column(name = "total_price")
+    @NotNull(message = "Total price cannot be null")
     private BigDecimal totalPrice;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Shipment shipment;
 }
