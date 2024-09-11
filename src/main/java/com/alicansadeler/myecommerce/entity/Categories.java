@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,6 +31,7 @@ public class Categories {
     @Size(max = 255, message = "Description  cannot be more than 255 characters")
     private String description;
 
-
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "categories")
+    private Set<Products> products = new HashSet<>();
 
 }
