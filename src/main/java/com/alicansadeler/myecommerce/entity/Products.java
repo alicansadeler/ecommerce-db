@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @NoArgsConstructor
@@ -22,13 +24,17 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+// CATEGORY
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Categories categories;
-
+// PRODUCTdetails
     @OneToOne(mappedBy = "products", cascade = CascadeType.ALL)
     private ProductDetails productDetails;
+// ORDER
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders = new HashSet<>();
+
 
     @Column(name = "name")
     @NotNull(message = "Product name cannot be null")
