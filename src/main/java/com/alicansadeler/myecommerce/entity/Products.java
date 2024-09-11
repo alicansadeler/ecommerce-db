@@ -1,6 +1,7 @@
 package com.alicansadeler.myecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -44,8 +45,10 @@ public class Products {
     private LocalDateTime deletedAt;
 
     @Column(name = "stock_quantity")
+    @Min(value = 0, message = "Stock quantity cannot be negative")
     private Long stockQuantity;
 
     @Column(name = "order_count")
+    @Min(value = 0, message = "Order count cannot be negative")
     private Integer orderCount = 0;
 }
