@@ -1,5 +1,6 @@
 package com.alicansadeler.myecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,9 +47,10 @@ public class Address {
     @Column(name = "postal_code")
     @NotNull(message = "Postal code cannot be null")
     @Size(max = 50, message = "Postal code cannot be more than 50 characters")
-    private Long postalCode;
+    private String postalCode;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 }

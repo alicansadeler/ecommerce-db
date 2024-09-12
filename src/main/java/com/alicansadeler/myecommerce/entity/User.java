@@ -1,5 +1,6 @@
 package com.alicansadeler.myecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -78,8 +79,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @JsonManagedReference
     private Set<Address> addresses = new HashSet<>();
+
+    public void addAddress(Address address) {
+        addresses.add(address);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
