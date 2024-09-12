@@ -48,7 +48,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setEmail(email);
         user.setPassword(encodedPassword);
         user.setAuthorities(roles);
-
         return userRepository.save(user);
     }
 
