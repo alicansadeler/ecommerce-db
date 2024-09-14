@@ -25,7 +25,7 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 // CATEGORY
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "category_id")
     private Categories categories;
 // PRODUCTdetails
@@ -42,6 +42,13 @@ public class Products {
     @Size(max = 100, message = "Product name cannot be more than 100 characters")
     private String name;
 
+    @Column(name = "description")
+    @Size(max = 255, message = "Description text cannot be more than 100 characters")
+    private String description;
+
+    @Column(name = "image_path")
+    private String imagePath;
+
     @Column(name = "created_at", updatable = false)
     @NotNull
     private LocalDateTime createdAt;
@@ -50,9 +57,6 @@ public class Products {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
 
     @Column(name = "stock_quantity")
     @Min(value = 0, message = "Stock quantity cannot be negative")
