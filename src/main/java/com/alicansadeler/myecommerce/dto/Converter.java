@@ -1,6 +1,8 @@
 package com.alicansadeler.myecommerce.dto;
 
+import com.alicansadeler.myecommerce.dto.response.CategoryProductDTO;
 import com.alicansadeler.myecommerce.dto.response.UserResponse;
+import com.alicansadeler.myecommerce.entity.Categories;
 import com.alicansadeler.myecommerce.entity.User;
 
 import java.util.ArrayList;
@@ -21,5 +23,9 @@ public class Converter {
         return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAuthorities().toString());
     }
 
-
+    public static CategoryProductDTO categoryProductDTO(Long id, Categories categories) {
+        return new CategoryProductDTO(id,
+                categories.getCategoryName(), categories.getDescription(), categories.getProducts()
+        );
+    }
 }
