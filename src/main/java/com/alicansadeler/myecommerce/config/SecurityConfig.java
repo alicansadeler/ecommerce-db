@@ -51,10 +51,18 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.DELETE,"/account/**").hasAuthority("ADMIN");
 
                     // adres işlemleri için silme ekleme güncelleme user ve admin, getirme DB işlemleri admine özel
-                    auth.requestMatchers(HttpMethod.GET,"/profile/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/profile/**").hasAnyAuthority("ADMIN", "USER");
                     auth.requestMatchers(HttpMethod.POST,"/profile/**").hasAnyAuthority("ADMIN", "USER");
                     auth.requestMatchers(HttpMethod.PUT,"/profile/**").hasAnyAuthority("ADMIN", "USER");
                     auth.requestMatchers(HttpMethod.DELETE,"/profile/**").hasAnyAuthority("ADMIN", "USER");
+
+                    // kullanıcılar get atabilmeli.
+                    auth.requestMatchers(HttpMethod.GET, "/shop/**").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/shop/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/shop/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/shop/**").hasAuthority("ADMIN");
+
+
 
                     auth.requestMatchers(HttpMethod.GET, "/product/**") // admin ve usera açık
                             .hasAnyAuthority("ADMIN", "USER");
