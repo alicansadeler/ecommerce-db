@@ -8,7 +8,6 @@ import com.alicansadeler.myecommerce.repository.CategoryRepository;
 import com.alicansadeler.myecommerce.services.service.CategoryService;
 import com.alicansadeler.myecommerce.validations.Validate;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (categories.isEmpty()) {
             throw new ApiException("Category not found. ID: " + id, HttpStatus.NOT_FOUND);
         }
-      return  Converter.categoryProductDTO(id, categories.get());
+      return  Converter.categoryProductDTO(categories.orElseThrow().getId(), categories.get());
     }
 
     private Categories find(Long id) {
@@ -69,6 +68,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Categories update(Long id, Categories updateCategories) {
         Categories oldCategory = find(id);
         Validate.validateCategoryUpdate(oldCategory, updateCategories);
-        return updateCategories;
+        return oldCategory;
     }
 }
