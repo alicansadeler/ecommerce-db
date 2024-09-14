@@ -97,5 +97,32 @@ public class Validate {
 
     }
 
+    public static void validateProductUpdate(Products oldProducts, Products updateProducts) {
+        if (updateProducts.getName() != null) {
+            oldProducts.setName(updateProducts.getName());
+        }
+        if (updateProducts.getDescription() != null) {
+            oldProducts.setDescription(updateProducts.getDescription());
+        }
+        if (updateProducts.getStockQuantity() != null) {
+            oldProducts.setStockQuantity(updateProducts.getStockQuantity());
+        }
+        if (updateProducts.getOrderCount() != null) {
+            oldProducts.setOrderCount(updateProducts.getOrderCount());
+        }
+        if (updateProducts.getImagePath() != null) {
+            oldProducts.setImagePath(updateProducts.getImagePath());
+        }
+        if (updateProducts.getCategories() != null) {
+            oldProducts.setCategories(updateProducts.getCategories());
+        }
+
+        if (updateProducts.getProductDetails() != null) {
+            oldProducts.setProductDetails(updateProducts.getProductDetails());
+        }
+
+    }
+
+
 
 }
