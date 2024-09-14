@@ -1,5 +1,6 @@
 package com.alicansadeler.myecommerce.validations;
 
+import com.alicansadeler.myecommerce.entity.Address;
 import com.alicansadeler.myecommerce.entity.User;
 import com.alicansadeler.myecommerce.exceptions.ApiException;
 import org.springframework.http.HttpStatus;
@@ -58,4 +59,27 @@ public class Validate {
             throw new ApiException("Invalid user ID", HttpStatus.BAD_REQUEST);
         }
     }
+
+    public static void validateAddressUpdate(Address oldAddress, Address updatedAddress) {
+        if (updatedAddress.getUser() != null) {
+            oldAddress.setUser(updatedAddress.getUser());
+        }
+        if (updatedAddress.getAddressText() != null) {
+            oldAddress.setAddressText(updatedAddress.getAddressText());
+        }
+        if (updatedAddress.getCity() != null) {
+            oldAddress.setCity(updatedAddress.getCity());
+        }
+        if (updatedAddress.getCountry() != null) {
+            oldAddress.setCountry(updatedAddress.getCountry());
+        }
+        if (updatedAddress.getPostalCode() != null) {
+            oldAddress.setPostalCode(updatedAddress.getPostalCode());
+        }
+        if (updatedAddress.getTitle() != null) {
+            oldAddress.setTitle(updatedAddress.getTitle());
+        }
+    }
+
+
 }
