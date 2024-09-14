@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -36,28 +37,40 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/welcome/**").permitAll();
-                    auth.requestMatchers(HttpMethod.GET, "/account/**").hasAnyAuthority("ADMIN", "USER");
-                    auth.requestMatchers(HttpMethod.POST, "/account/**").hasAuthority("ADMIN");
-                    auth.requestMatchers(HttpMethod.PUT, "/account/**").hasAuthority("ADMIN");
-                    auth.anyRequest().authenticated();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        return http.csrf(csrf -> csrf.disable()) // csrf korumasını devre dışı bırak
+                .authorizeHttpRequests(auth -> { // yetkilendirme ayarları
+                    auth.requestMatchers("/auth/**").permitAll();// tüm kullanıcılara açık - user kayıt
+
+
+                    // kullanıcı ile ilgili işlemler admin tarafından yapılmalı ?
+                    auth.requestMatchers(HttpMethod.GET,"/account/**").hasAnyAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/account/**").hasAnyAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT,"/account/**").hasAnyAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE,"/account/**").hasAnyAuthority("ADMIN");
+
+
+                    auth.requestMatchers(HttpMethod.GET, "/product/**") // admin ve usera açık
+                            .hasAnyAuthority("ADMIN", "USER");
+                    auth.requestMatchers(HttpMethod.POST, "/product/**").hasAuthority("ADMIN");
+                    auth.anyRequest().authenticated(); // Diğer Tüm İstekler: Kimlik doğrulama gerektirir
                 })
-                .httpBasic(Customizer.withDefaults())
-                .build();
+
+                .formLogin(Customizer.withDefaults()) // Form tabanlı kimlik doğrulama (username ve şifre ile giriş)
+                // varsayılan ayarlarla etkinleştirilir.
+
+                .httpBasic(Customizer.withDefaults()) //HTTP Basic Authentication varsayılan ayarlarla etkinleştirilir.
+
+                .build(); //Yapılandırmayı tamamlar ve SecurityFilterChain nesnesi olarak döner.
     }
 
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("/**"));
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        corsConfiguration.setAllowedOrigins(List.of("/**"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         corsConfiguration.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
