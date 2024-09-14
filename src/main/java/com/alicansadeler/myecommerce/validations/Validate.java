@@ -1,10 +1,13 @@
 package com.alicansadeler.myecommerce.validations;
 
 import com.alicansadeler.myecommerce.entity.Address;
+import com.alicansadeler.myecommerce.entity.Categories;
+import com.alicansadeler.myecommerce.entity.Products;
 import com.alicansadeler.myecommerce.entity.User;
 import com.alicansadeler.myecommerce.exceptions.ApiException;
 import org.springframework.http.HttpStatus;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Validate {
@@ -79,6 +82,19 @@ public class Validate {
         if (updatedAddress.getTitle() != null) {
             oldAddress.setTitle(updatedAddress.getTitle());
         }
+    }
+
+    public static void validateCategoryUpdate(Categories oldCategories, Categories updateCategories) {
+        if (updateCategories.getCategoryName() != null) {
+            oldCategories.setCategoryName(updateCategories.getCategoryName());
+        }
+        if (updateCategories.getDescription() != null) {
+            oldCategories.setDescription(updateCategories.getDescription());
+        }
+        if (updateCategories.getProducts() != null) {
+            oldCategories.setProducts(updateCategories.getProducts());
+        }
+
     }
 
 
