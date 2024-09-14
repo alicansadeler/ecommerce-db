@@ -18,7 +18,7 @@ public class Converter {
     }
 
     public static UserResponse userResponse(User user) {
-        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail());
+        return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAuthorities().toString());
     }
 
 
