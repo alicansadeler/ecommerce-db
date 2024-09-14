@@ -49,7 +49,7 @@ public class Address {
     @Size(max = 50, message = "Postal code cannot be more than 50 characters")
     private String postalCode;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
