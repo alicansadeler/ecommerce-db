@@ -45,11 +45,16 @@ public class SecurityConfig {
 
 
                     // kullanıcı ile ilgili işlemler admin tarafından yapılmalı ?
-                    auth.requestMatchers(HttpMethod.GET,"/account/**").hasAnyAuthority("ADMIN");
-                    auth.requestMatchers(HttpMethod.POST,"/account/**").hasAnyAuthority("ADMIN");
-                    auth.requestMatchers(HttpMethod.PUT,"/account/**").hasAnyAuthority("ADMIN");
-                    auth.requestMatchers(HttpMethod.DELETE,"/account/**").hasAnyAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/account/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/account/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT,"/account/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE,"/account/**").hasAuthority("ADMIN");
 
+                    // adres işlemleri için silme ekleme güncelleme user ve admin, getirme DB işlemleri admine özel
+                    auth.requestMatchers(HttpMethod.GET,"/profile/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST,"/profile/**").hasAnyAuthority("ADMIN", "USER");
+                    auth.requestMatchers(HttpMethod.PUT,"/profile/**").hasAnyAuthority("ADMIN", "USER");
+                    auth.requestMatchers(HttpMethod.DELETE,"/profile/**").hasAnyAuthority("ADMIN", "USER");
 
                     auth.requestMatchers(HttpMethod.GET, "/product/**") // admin ve usera açık
                             .hasAnyAuthority("ADMIN", "USER");
