@@ -46,10 +46,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Products delete(Long id) {
+    public void delete(Long id) {
         Products products = findById(id);
         productRepository.delete(products);
-        return products;
     }
 
     @Override
@@ -59,4 +58,6 @@ public class ProductServiceImpl implements ProductService {
         Validate.validateProductUpdate(oldProduct, updateProducts);
        return productRepository.save(oldProduct);
     }
+
+
 }

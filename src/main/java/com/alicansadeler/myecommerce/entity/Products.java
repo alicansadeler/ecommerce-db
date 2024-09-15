@@ -10,7 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -29,8 +31,8 @@ public class Products {
     @JoinColumn(name = "category_id")
     private Categories categories;
 // PRODUCTdetails
-    @OneToOne(mappedBy = "products", cascade = CascadeType.ALL)
-    private ProductDetails productDetails;
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductDetails> productDetails = new ArrayList<>();
 // ORDER
     @ManyToMany(mappedBy = "products")
     private Set<Order> orders = new HashSet<>();
@@ -65,4 +67,14 @@ public class Products {
     @Column(name = "order_count")
     @Min(value = 0, message = "Order count cannot be negative")
     private Integer orderCount = 0;
+
+    public void addProductDetail(ProductDetails detail) {
+        productDetails.add(detail);
+        detail.setProducts(this);
+    }
+
+    public void removeProductDetail(ProductDetails detail) {
+        productDetails.remove(detail);
+        detail.setProducts(null);
+    }
 }
