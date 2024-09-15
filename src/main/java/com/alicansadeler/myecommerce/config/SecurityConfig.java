@@ -56,17 +56,13 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.PUT,"/profile/**").hasAnyAuthority("ADMIN", "USER");
                     auth.requestMatchers(HttpMethod.DELETE,"/profile/**").hasAnyAuthority("ADMIN", "USER");
 
-                    // kullanıcılar get atabilmeli.
+                    // kullanıcılar get atabilmeli. ** shop/product
                     auth.requestMatchers(HttpMethod.GET, "/shop/**").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/shop/**").hasAuthority("ADMIN");
                     auth.requestMatchers(HttpMethod.PUT, "/shop/**").hasAuthority("ADMIN");
                     auth.requestMatchers(HttpMethod.DELETE, "/shop/**").hasAuthority("ADMIN");
 
 
-
-                    auth.requestMatchers(HttpMethod.GET, "/product/**") // admin ve usera açık
-                            .hasAnyAuthority("ADMIN", "USER");
-                    auth.requestMatchers(HttpMethod.POST, "/product/**").hasAuthority("ADMIN");
                     auth.anyRequest().authenticated(); // Diğer Tüm İstekler: Kimlik doğrulama gerektirir
                 })
 
