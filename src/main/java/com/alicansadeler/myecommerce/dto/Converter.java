@@ -1,8 +1,12 @@
 package com.alicansadeler.myecommerce.dto;
 
 import com.alicansadeler.myecommerce.dto.response.CategoryProductDTO;
+import com.alicansadeler.myecommerce.dto.response.ProductDetailResponse;
+import com.alicansadeler.myecommerce.dto.response.ProductResponse;
 import com.alicansadeler.myecommerce.dto.response.UserResponse;
 import com.alicansadeler.myecommerce.entity.Categories;
+import com.alicansadeler.myecommerce.entity.ProductDetails;
+import com.alicansadeler.myecommerce.entity.Products;
 import com.alicansadeler.myecommerce.entity.User;
 
 import java.util.ArrayList;
@@ -27,5 +31,33 @@ public class Converter {
         return new CategoryProductDTO(id,
                 categories.getCategoryName(), categories.getDescription(), categories.getProducts()
         );
+    }
+
+
+    public static ProductResponse productResponse(Products products) {
+        List<ProductDetailResponse> detailResponses = new ArrayList<>();
+
+        for (ProductDetails detail : products.getProductDetails()) {
+            ProductDetailResponse detailResponse = new ProductDetailResponse(
+                    detail.getSize(),
+                    detail.getColor(),
+                    detail.getStock()
+            );
+            detailResponses.add(detailResponse);
+        }
+
+        return new ProductResponse(products.getId(), products.getName(), products.getImagePath(), products.getDescription(), products.getStockQuantity(), products.getCategories().getCategoryName() ,detailResponses);
+
+    }
+
+    public static List<ProductResponse> productResponseList(List<Products> products) {
+        List<ProductResponse> productResponses = new ArrayList<>();
+
+        for (Products product : products) {
+            ProductResponse productResponse = productResponse(product);
+            productResponses.add(productResponse);
+        }
+
+        return productResponses;
     }
 }
