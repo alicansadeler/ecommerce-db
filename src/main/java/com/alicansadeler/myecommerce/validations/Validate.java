@@ -1,9 +1,6 @@
 package com.alicansadeler.myecommerce.validations;
 
-import com.alicansadeler.myecommerce.entity.Address;
-import com.alicansadeler.myecommerce.entity.Categories;
-import com.alicansadeler.myecommerce.entity.Products;
-import com.alicansadeler.myecommerce.entity.User;
+import com.alicansadeler.myecommerce.entity.*;
 import com.alicansadeler.myecommerce.exceptions.ApiException;
 import org.springframework.http.HttpStatus;
 
@@ -117,10 +114,21 @@ public class Validate {
             oldProducts.setCategories(updateProducts.getCategories());
         }
 
-        if (updateProducts.getProductDetails() != null) {
-            oldProducts.setProductDetails(updateProducts.getProductDetails());
-        }
+        updateProductDetails(oldProducts, updateProducts);
+    }
 
+    private static void updateProductDetails(Products oldProduct, Products updateProduct) {
+        if (updateProduct.getProductDetails() != null) {
+            oldProduct.getProductDetails().clear();
+            for (ProductDetails newDetail : updateProduct.getProductDetails()) {
+                ProductDetails detailCopy = new ProductDetails();
+                detailCopy.setSize(newDetail.getSize());
+                detailCopy.setColor(newDetail.getColor());
+                detailCopy.setStock(newDetail.getStock());
+                detailCopy.setProducts(oldProduct);
+                oldProduct.getProductDetails().add(detailCopy);
+            }
+        }
     }
 
 
