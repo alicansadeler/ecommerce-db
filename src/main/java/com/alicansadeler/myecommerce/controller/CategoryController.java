@@ -49,4 +49,6 @@ public class CategoryController {
     public Categories deleteCategory(@PathVariable Long id) {
         return categoryService.delete(id);
     }
+
+    // TODO kategoriyi ürünlerle birlikte post edecek metot ekle
 }

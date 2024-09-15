@@ -34,4 +34,8 @@ public class Categories {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categories")
     private Set<Products> products = new HashSet<>();
 
+
+    public void addProduct(Products products) {
+        this.products.add(products);
+    }
 }

@@ -14,5 +14,6 @@ public interface CategoryService {
     List<Categories> findAll();
     CategoryProductDTO findById(@NotNull Long id);
     Categories update(@NotNull Long id, @Valid Categories updateCategories);
+    Categories find(Long id);
 
 }

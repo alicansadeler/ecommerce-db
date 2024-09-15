@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
       return  Converter.categoryProductDTO(categories.orElseThrow().getId(), categories.get());
     }
 
-    private Categories find(Long id) {
+    public Categories find(Long id) {
         Validate.validateId(id);
         Optional<Categories> categories = categoryRepository.findById(id);
         if (categories.isEmpty()) {
