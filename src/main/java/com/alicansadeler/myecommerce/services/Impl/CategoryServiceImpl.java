@@ -1,6 +1,7 @@
 package com.alicansadeler.myecommerce.services.Impl;
 
 import com.alicansadeler.myecommerce.dto.Converter;
+import com.alicansadeler.myecommerce.dto.response.CategoryOfProduct;
 import com.alicansadeler.myecommerce.dto.response.CategoryProductDTO;
 import com.alicansadeler.myecommerce.entity.Categories;
 import com.alicansadeler.myecommerce.exceptions.ApiException;
@@ -47,6 +48,11 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ApiException("Category not found. ID: " + id, HttpStatus.NOT_FOUND);
         }
         return categories.get();
+    }
+
+    @Override
+    public List<CategoryOfProduct> findCategoryOfProduct() {
+        return categoryRepository.findCategoryOfProduct();
     }
 
     @Override

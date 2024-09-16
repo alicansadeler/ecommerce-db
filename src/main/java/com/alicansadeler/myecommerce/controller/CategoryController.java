@@ -1,5 +1,6 @@
 package com.alicansadeler.myecommerce.controller;
 
+import com.alicansadeler.myecommerce.dto.response.CategoryOfProduct;
 import com.alicansadeler.myecommerce.dto.response.CategoryProductDTO;
 import com.alicansadeler.myecommerce.entity.Categories;
 import com.alicansadeler.myecommerce.services.service.CategoryService;
@@ -20,16 +21,17 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Categories> getAllCategory() {
-        return categoryService.findAll();
-    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryProductDTO getCategory(@PathVariable Long id) {
         return categoryService.findById(id);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<CategoryOfProduct> getCategoryOfProduct() {
+        return categoryService.findCategoryOfProduct();
     }
 
     @PostMapping
