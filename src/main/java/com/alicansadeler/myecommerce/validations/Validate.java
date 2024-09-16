@@ -132,5 +132,21 @@ public class Validate {
     }
 
 
-
+    public static void validateDetailsUpdate(ProductDetails oldProductDetails, ProductDetails updateProductDetails) {
+        if (updateProductDetails.getSize() != null) {
+            oldProductDetails.setSize(updateProductDetails.getSize());
+        }
+        if (updateProductDetails.getColor() != null) {
+            oldProductDetails.setColor(updateProductDetails.getColor());
+        }
+        if (updateProductDetails.getProducts() != null) {
+            oldProductDetails.setProducts(updateProductDetails.getProducts());
+        }
+        if (updateProductDetails.getId() != null) {
+            oldProductDetails.setId(updateProductDetails.getId());
+        }
+        if (updateProductDetails.getStock() != null) {
+            oldProductDetails.setStock(updateProductDetails.getStock());
+        }
+    }
 }
