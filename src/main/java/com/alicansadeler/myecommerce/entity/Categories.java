@@ -31,7 +31,8 @@ public class Categories {
     @Size(max = 255, message = "Description  cannot be more than 255 characters")
     private String description;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categories")
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Products> products = new HashSet<>();
 
 

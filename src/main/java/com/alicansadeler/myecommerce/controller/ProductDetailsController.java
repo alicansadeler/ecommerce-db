@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/shop/products")
 public class ProductDetailsController {
-    // TODO post yaparken hangi kategoriye ait olduğunu gir
 
     private final ProductDetailsService productDetailsService;
     private final ProductService productService;
