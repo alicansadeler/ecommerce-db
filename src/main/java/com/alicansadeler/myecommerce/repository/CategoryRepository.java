@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Categories, Long> {
-    @Query("SELECT new com.alicansadeler.myecommerce.dto.response.CategoryOfProduct(ca.categoryName, pr.name, pr.stockQuantity, pr.imagePath) " +
+    @Query("SELECT new com.alicansadeler.myecommerce.dto.response.CategoryOfProduct(ca.categoryName, pr.name, pr.stockQuantity, pr.imagePath, pr.description) " +
             "FROM Categories ca LEFT JOIN ca.products pr")
     List<CategoryOfProduct> findCategoryOfProduct();
 
