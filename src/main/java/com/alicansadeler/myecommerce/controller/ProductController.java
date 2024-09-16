@@ -7,6 +7,7 @@ import com.alicansadeler.myecommerce.entity.Products;
 import com.alicansadeler.myecommerce.services.service.CategoryService;
 import com.alicansadeler.myecommerce.services.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,16 +25,19 @@ public class ProductController {
     }
 
     @GetMapping("/products")
+    @ResponseStatus(HttpStatus.OK)
     public List<ProductResponse> getAllProduct() {
         return Converter.productResponseList(productService.findAll());
     }
 
     @GetMapping("/products/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ProductResponse getProduct(@PathVariable Long id) {
         return Converter.productResponse(productService.findById(id));
     }
 
     @PostMapping("/{categoryId}/products")
+    @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse saveProduct(@PathVariable Long categoryId, @RequestBody Products products) {
         Categories categories = categoryService.find(categoryId);
         products.setCategories(categories);
@@ -41,11 +45,13 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Products updateProduct(@PathVariable Long id, @RequestBody Products products) {
         return productService.update(id, products);
     }
 
     @DeleteMapping("/products/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteProduct(@PathVariable Long id) {
         productService.delete(id);
     }
