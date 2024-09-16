@@ -1,5 +1,6 @@
 package com.alicansadeler.myecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -31,7 +32,9 @@ public class Products {
     @JoinColumn(name = "category_id")
     private Categories categories;
 // PRODUCTdetails
-    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    // TODO detail tablosu parçalanmalı ** sunumdan sonra
+    @JsonManagedReference
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProductDetails> productDetails = new ArrayList<>();
 // ORDER
     @ManyToMany(mappedBy = "products")
