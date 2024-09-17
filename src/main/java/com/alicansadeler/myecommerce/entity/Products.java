@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -57,6 +58,9 @@ public class Products {
     @Column(name = "created_at", updatable = false)
     @NotNull
     private LocalDateTime createdAt;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @PrePersist
     protected void onCreate() {

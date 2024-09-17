@@ -46,7 +46,7 @@ public class SecurityConfig {
 
 
                     // kullanıcı ile ilgili işlemler admin tarafından yapılmalı ?
-                    auth.requestMatchers(HttpMethod.GET,"/account/**").hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/account/**").permitAll();
                     auth.requestMatchers(HttpMethod.POST,"/account/**").hasAuthority("ADMIN");
                     auth.requestMatchers(HttpMethod.PUT,"/account/**").hasAuthority("ADMIN");
                     auth.requestMatchers(HttpMethod.DELETE,"/account/**").hasAuthority("ADMIN");
