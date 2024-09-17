@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS public\;SET SCHEMA public
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        default_schema: public
+        show_sql: true
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+  logging:
+    level:
+      root: WARN
+      org.springframework: INFO
+      org.hibernate: ERROR

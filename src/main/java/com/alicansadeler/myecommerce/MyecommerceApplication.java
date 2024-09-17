@@ -9,5 +9,5 @@ public class MyecommerceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyecommerceApplication.class, args);
 	}
-
+// TODO : save metodları için tablolarda unique bir değer olmalı aynı datayı kaydetmemek için
 }
