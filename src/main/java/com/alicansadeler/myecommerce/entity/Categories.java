@@ -21,7 +21,7 @@ public class Categories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category_name")
+    @Column(name = "category_name", unique = true)
     @NotNull(message = "Category name cannot be null")
     @NotBlank(message = "Category name cannot be blank")
     @Size(max = 100, message = "Category name cannot be more than 100 characters")

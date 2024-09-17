@@ -22,4 +22,5 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "authority")
     private String authority;
+
 }

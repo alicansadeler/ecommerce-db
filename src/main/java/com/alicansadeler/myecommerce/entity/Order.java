@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "order", schema = "public")
+@Table(name = "orders", schema = "public")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

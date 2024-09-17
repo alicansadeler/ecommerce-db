@@ -22,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "users", schema = "public")
 
 public class User implements UserDetails {
     @Id
