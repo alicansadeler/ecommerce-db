@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
@@ -36,6 +37,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private User save(User user) {
         Validate.validateUserForSave(user);
+        Optional<User> user1 = userRepository.findUserByEmail(user.getEmail());
+        if (user1.isEmpty()) {
+            throw new ApiException("User already in use. Email: " + user.getEmail(), HttpStatus.BAD_REQUEST);
+        }
         return userRepository.save(user);
     }
 
