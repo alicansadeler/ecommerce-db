@@ -46,7 +46,7 @@ public class Converter {
             detailResponses.add(detailResponse);
         }
 
-        return new ProductResponse(products.getId(), products.getName(), products.getImagePath(), products.getDescription(), products.getStockQuantity(), products.getCategories().getCategoryName() ,detailResponses);
+        return new ProductResponse(products.getId(), products.getName(), products.getImagePath(), products.getDescription(), products.getStockQuantity(), products.getCategories().getCategoryName() ,detailResponses, products.getPrice());
 
     }
 
