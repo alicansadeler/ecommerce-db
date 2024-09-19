@@ -42,6 +42,7 @@ public class SecurityConfig {
 
         return http.csrf(AbstractHttpConfigurer::disable) // csrf korumasını devre dışı bırak
                 .authorizeHttpRequests(auth -> { // yetkilendirme ayarları
+                    // TODO admin kaydı için 403 ayarla
                     auth.requestMatchers("/auth/**").permitAll();// tüm kullanıcılara açık - user kayıt
 
 
